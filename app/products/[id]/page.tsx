@@ -1,5 +1,4 @@
 import { notFound } from 'next/navigation'
-import { Button } from '@/components/ui/button'
 import { getProducts } from '@/lib/google-sheets'
 import Link from 'next/link'
 
