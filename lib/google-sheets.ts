@@ -3,7 +3,14 @@ import axios from 'axios';
 const SHEET_ID = '1mlI_-rUxWRY44GhtK73SVXfFrUvvB6nF8lKomlIcMo8';
 const SHEET_NAME = 'Sheet1';
 
-export async function getProducts() {
+interface Product {
+  id: number;
+  name: string;
+  description: string;
+  otherAttributes: string;
+}
+
+export async function getProducts(): Promise<Product[]> {
   const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=${SHEET_NAME}`;
 
   try {
@@ -16,7 +23,7 @@ export async function getProducts() {
     }
 
     // Skip the first row (header) and map the rest
-    return data.table.rows.slice(1).map((row: any, index: number) => {
+    return data.table.rows.slice(1).map((row: any, index: number): Product => {
       return {
         id: index + 1,
         name: row.c[0]?.v || 'No Name',
