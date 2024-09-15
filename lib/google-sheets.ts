@@ -23,7 +23,8 @@ export async function getProducts(): Promise<Product[]> {
     }
 
     // Skip the first row (header) and map the rest
-    return data.table.rows.slice(1).map((row: any, index: number): Product => {
+    return data.table.rows.slice(1).map((row: SheetRow, index: number): Product => {
+      console.log(row);
       return {
         id: index + 1,
         name: row.c[0]?.v || 'No Name',
@@ -36,3 +37,11 @@ export async function getProducts(): Promise<Product[]> {
     return [];
   }
 }
+
+type Cell = {
+  v: string | null;
+};
+
+type SheetRow = {
+  c: Cell[];
+};

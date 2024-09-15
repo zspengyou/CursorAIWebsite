@@ -37,3 +37,6 @@ next-env.d.ts
 
 # Google Sheets API credentials
 google-sheets-credentials.json
+
+# IntelliJ IDEA
+.idea
