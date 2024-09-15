@@ -29,7 +29,8 @@ export default async function ProductDetail({ params }: { params: { id: string }
             <h2 className="text-xl font-semibold mb-2">Other Attributes</h2>
             <p className="text-gray-700">{product.otherAttributes}</p>
           </div>
-          <Button className="w-full">Add to Cart</Button>
+          
+          {/* <Button className="w-full">Add to Cart</Button> */}
         </div>
       </div>
     </div>
