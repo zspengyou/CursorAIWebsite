@@ -55,28 +55,34 @@ export default function Contact() {
       
       <div className="grid md:grid-cols-2 gap-8">
         {/* Company Information Section */}
-        <div className="border rounded-lg p-6">
+        <div className="border rounded-lg p-6 bg-white shadow-md">
           <h2 className="text-2xl font-semibold mb-2">Company Information</h2>
-          <p className="text-gray-600 mb-4">Get in touch with us</p>
+          <p className="text-gray-600 mb-4">
+          With over 6,000 products in stock, DE Chem Inc. is ready to meet all your needs in synthetic intermediates, custom synthesis, processing, and manufacturing. We also offer cost-effective solutions through our contracted medicinal chemistry services.
+
+<br />
+        <br />
+Feel free to contact us for quotes and inquiries; we are here to support your success.
+          </p>
           
           <div className="space-y-4">
             <div className="flex items-center">
-              <MapPin className="mr-2" />
-              <p>2286 Chemin St-Francois, Dorval, Quebec, H9P 1K2, Canada</p>
+              <MapPin className="mr-2 text-blue-500" />
+              <p>2286 Chemin St-Francois, Dorval,<br /> Quebec, H9P 1K2, Canada</p>
             </div>
             <div className="flex items-center">
-              <Phone className="mr-2" />
+              <Phone className="mr-2 text-blue-500" />
               <p>1-438-367 7289</p>
             </div>
             <div className="flex items-center">
-              <Mail className="mr-2" />
+              <Mail className="mr-2 text-blue-500" />
               <p>info@dechem-canada.com</p>
             </div>
           </div>
         </div>
 
         {/* Contact Form Section */}
-        <div className="border rounded-lg p-6">
+        <div className="border rounded-lg p-6 bg-white shadow-md">
           <h2 className="text-2xl font-semibold mb-2">Send us a message</h2>
           <p className="text-gray-600 mb-4">We&apos;ll get back to you as soon as possible</p>
           
@@ -92,7 +98,7 @@ export default function Contact() {
                 required
                 placeholder="Your name"
                 className={cn(
-                  "bg-gray-100 border-gray-300 focus:border-blue-500 focus:bg-white",
+                  "bg-gray-50 border-gray-300 focus:border-blue-500 focus:bg-white",
                   "transition-colors duration-200"
                 )}
               />
@@ -108,7 +114,7 @@ export default function Contact() {
                 required
                 placeholder="Your email"
                 className={cn(
-                  "bg-gray-100 border-gray-300 focus:border-blue-500 focus:bg-white",
+                  "bg-gray-50 border-gray-300 focus:border-blue-500 focus:bg-white",
                   "transition-colors duration-200"
                 )}
               />
@@ -123,14 +129,18 @@ export default function Contact() {
                 required
                 placeholder="Your message"
                 className={cn(
-                  "bg-gray-100 border-gray-300 focus:border-blue-500 focus:bg-white",
+                  "bg-gray-50 border-gray-300 focus:border-blue-500 focus:bg-white",
                   "transition-colors duration-200",
                   "min-h-[150px]"
                 )}
                 rows={6}
               />
             </div>
-            <Button type="submit" disabled={isSubmitting} className="w-full">
+            <Button 
+              type="submit" 
+              disabled={isSubmitting} 
+              className="w-full bg-black hover:bg-gray-800 text-white transition-colors duration-200"
+            >
               {isSubmitting ? 'Sending...' : (
                 <>
                   <Send className="mr-2" />
