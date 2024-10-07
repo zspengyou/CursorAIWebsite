@@ -112,8 +112,10 @@ export default function Contact() {
             required
             className={cn(
               "bg-gray-100 border-gray-300 focus:border-blue-500 focus:bg-white",
-              "transition-colors duration-200"
+              "transition-colors duration-200",
+              "min-h-[150px]" // This sets a minimum height
             )}
+            rows={6} // This sets the default number of visible text lines
           />
         </div>
         <Button type="submit" disabled={isSubmitting}>
