@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { Button } from '@/components/ui/button'
+import { cn } from "@/lib/utils"
 
 export default function Contact() {
   const [formData, setFormData] = useState({
@@ -53,11 +54,11 @@ export default function Contact() {
       <div className="mb-8">
         <h2 className="text-xl font-semibold mb-2">DE Chem. Inc.</h2>
         <p>
-          We currently have more than 6000 products in stock. Please contact us for any your needs in synthetic intermediates, custom synthesis, processing and manufacturing as well as low cost contracted medichem.
+        With over 6,000 products in stock, DE Chem Inc. is ready to meet all your needs in synthetic intermediates, custom synthesis, processing, and manufacturing. We also offer cost-effective solutions through our contracted medicinal chemistry services.
         </p>
         <br />
         <p> 
-        You are welcome to quoting with us.
+        Feel free to contact us for quotes and inquiries—we're here to support your success.
         </p>
         <br />
         <p>2286 Chemin St-Francois</p>
@@ -80,6 +81,10 @@ export default function Contact() {
             value={formData.name}
             onChange={handleChange}
             required
+            className={cn(
+              "bg-gray-100 border-gray-300 focus:border-blue-500 focus:bg-white",
+              "transition-colors duration-200"
+            )}
           />
         </div>
         <div className="mb-4">
@@ -91,6 +96,10 @@ export default function Contact() {
             value={formData.email}
             onChange={handleChange}
             required
+            className={cn(
+              "bg-gray-100 border-gray-300 focus:border-blue-500 focus:bg-white",
+              "transition-colors duration-200"
+            )}
           />
         </div>
         <div className="mb-4">
@@ -101,6 +110,10 @@ export default function Contact() {
             value={formData.message}
             onChange={handleChange}
             required
+            className={cn(
+              "bg-gray-100 border-gray-300 focus:border-blue-500 focus:bg-white",
+              "transition-colors duration-200"
+            )}
           />
         </div>
         <Button type="submit" disabled={isSubmitting}>
