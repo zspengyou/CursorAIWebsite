@@ -58,6 +58,7 @@ export default function Contact() {
         </p>
         <br />
         <p> 
+        Feel free to contact us for quotes and inquiries&mdash;we&apos;re here to support your success.
         Feel free to contact us for quotes and inquiries—we're here to support your success.
         </p>
         <br />
