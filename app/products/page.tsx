@@ -51,6 +51,12 @@ export default function Products() {
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-6">Our Products</h1>
+      <p>      
+        Chemicals in Analytical chemistry<br />
+        PEG, PEG Linker and Cy5<br />
+        And custom synthesis<br />
+      </p>
+
       <Input
         type="text"
         placeholder="Search products..."

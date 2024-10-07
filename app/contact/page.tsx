@@ -51,10 +51,24 @@ export default function Contact() {
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-6">Contact Us</h1>
       <div className="mb-8">
-        <h2 className="text-xl font-semibold mb-2">Our Information</h2>
-        <p>Email: info@chemicalstore.com</p>
-        <p>Phone: (123) 456-7890</p>
-        <p>Address: 123 Chemical St, Science City, SC 12345</p>
+        <h2 className="text-xl font-semibold mb-2">DE Chem. Inc.</h2>
+        <p>
+          We currently have more than 6000 products in stock. Please contact us for any your needs in synthetic intermediates, custom synthesis, processing and manufacturing as well as low cost contracted medichem.
+        </p>
+        <br />
+        <p> 
+        You are welcome to quoting with us.
+        </p>
+        <br />
+        <p>2286 Chemin St-Francois</p>
+        <p>Dorval, Quebec, H9P 1K2, Canada
+        </p>
+        <p>
+        Tel: 1-438-367 7289
+        </p>
+        <p>
+        Email: info@dechem-canada.com
+        </p>
       </div>
       <form onSubmit={handleSubmit}>
         <div className="mb-4">
