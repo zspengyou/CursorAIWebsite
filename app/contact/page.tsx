@@ -58,17 +58,20 @@ export default function Contact() {
         <div className="border rounded-lg p-6 bg-white shadow-md">
           <h2 className="text-2xl font-semibold mb-2">Company Information</h2>
           <p className="text-gray-600 mb-4">
-          With over 6,000 products in stock, DE Chem Inc. is ready to meet all your needs in synthetic intermediates, custom synthesis, processing, and manufacturing. We also offer cost-effective solutions through our contracted medicinal chemistry services.
-
-<br />
-        <br />
-Feel free to contact us for quotes and inquiries; we are here to support your success.
+          With over 6,000 products in stock and Customer Synthesis service provided, DE Chem Inc. is ready to meet all your needs in synthetic intermediates, Analytical Reagent, PEG, PEG linker, PEG linker modified nano materials, and Cy5 etc.
+          <br />
+          <br />
+          Please feel free to contact us for quotes and inquiries; we are here to support your success.
           </p>
           
           <div className="space-y-4">
             <div className="flex items-center">
               <MapPin className="mr-2 text-blue-500" />
-              <p>2286 Chemin St-Francois, Dorval,<br /> Quebec, H9P 1K2, Canada</p>
+              <p>
+                DE Chem Inc.<br />
+                2286 Chemin St-Francois<br />
+                Dorval, Quebec, H9P 1K2, Canada
+              </p>
             </div>
             <div className="flex items-center">
               <Phone className="mr-2 text-blue-500" />
