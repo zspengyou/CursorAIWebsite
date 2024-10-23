@@ -13,7 +13,7 @@ interface Product {
   otherAttributes: string;
 }
 
-const PRODUCTS_PER_PAGE = 20
+const PRODUCTS_PER_PAGE = 50
 
 export default function Products() {
   const [products, setProducts] = useState<Product[]>([])
@@ -23,7 +23,7 @@ export default function Products() {
 
   useEffect(() => {
     const fetchProducts = async () => {
-      const fetchedProducts = await getProducts()
+      const fetchedProducts = await getProducts('Sheet1')
       setProducts(fetchedProducts)
       setFilteredProducts(fetchedProducts)
     }

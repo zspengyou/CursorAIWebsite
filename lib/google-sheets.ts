@@ -10,8 +10,8 @@ interface Product {
   otherAttributes: string;
 }
 
-export async function getProducts(): Promise<Product[]> {
-  const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=${SHEET_NAME}`;
+export async function getProducts(sheetName: string = SHEET_NAME): Promise<Product[]> {
+  const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=${sheetName}`;
 
   try {
     const response = await axios.get(url);
