@@ -8,14 +8,15 @@ export default function Home() {
         <h1 className="text-4xl font-bold mb-4">Advanced Chemical Solutions</h1>
         <div className="bg-white border rounded-lg p-6 shadow-sm">
           <p className="text-lg text-gray-600">
-            DE chem inc. (a successor of AB chem inc. running independently at the same site) continuously focuses on advanced
-            building blocks for pharmaceutical, biotech, and agrochemical industries. DE Chem has a number of unique structural
-            fragments which are not commercially available from other manufacturers.
+          DE Chem Inc. focuses on advanced building blocks for pharmaceutical, biotech and agrochemical industries. 
+          DE Chem has a number of unique structural fragments, which are not commercially available from other manufacturers.
+          We also offer broader services including drug APIs, impurities, metabolites, and their corresponding labeled compounds (M+3, M+4 etc.) in analytical chemistry.
+          Additionally, we provide PEG, PEG Linker (PEG linker modified nano- liposome formula materials, and lipophilic nanoparticle formula materials) and Cy5 products.
           </p>
         </div>
       </section>
 
-      <div className="grid md:grid-cols-2 gap-8 mb-12">
+      {/* <div className="grid md:grid-cols-2 gap-8 mb-12">
         <div className="bg-white border rounded-lg p-6 shadow-sm">
           <h2 className="text-2xl font-semibold mb-4">Comprehensive Services</h2>
           <p className="text-gray-600">
@@ -35,7 +36,7 @@ export default function Home() {
             urgently needed drug delivery industry.
           </p>
         </div>
-      </div>
+      </div> */}
 
       <div className="text-center">
         <Link href="/products">
