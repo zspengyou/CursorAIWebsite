@@ -37,6 +37,8 @@ export default function Products() {
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([])
   const [searchTerm, setSearchTerm] = useState('')
   const [selectedCategory, setSelectedCategory] = useState('All')
+  const [currentPage, setCurrentPage] = useState(1)
+
 
   useEffect(() => {
     const fetchAllProducts = async () => {
@@ -51,6 +53,13 @@ export default function Products() {
       setFilteredProducts(flattenedProducts)
     }
     fetchAllProducts()
+
+    // Check for last viewed category in localStorage
+    const lastViewedCategory = localStorage.getItem('lastViewedCategory')
+    if (lastViewedCategory) {
+      setSelectedCategory(lastViewedCategory)
+      localStorage.removeItem('lastViewedCategory') // Clear after using
+    }
   }, [])
 
   useEffect(() => {
@@ -64,6 +73,7 @@ export default function Products() {
       product.catalog.toLowerCase().includes(searchTerm.toLowerCase())
     )
     setFilteredProducts(filtered)
+    setCurrentPage(1) // Reset to first page when filtering changes
   }, [searchTerm, selectedCategory, products])
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -74,7 +84,7 @@ export default function Products() {
     const encodedProduct = encodeURIComponent(JSON.stringify(product))
     router.push(`/products/${encodeURIComponent(product.category)}/${product.id}?data=${encodedProduct}`)
   }
-  const [currentPage, setCurrentPage] = useState(1)
+
   const totalPages = Math.ceil(filteredProducts.length / PRODUCTS_PER_PAGE)
   const startIndex = (currentPage - 1) * PRODUCTS_PER_PAGE
   const endIndex = startIndex + PRODUCTS_PER_PAGE
@@ -132,7 +142,7 @@ export default function Products() {
           ))}
         </TableBody>
       </Table>
-      <div className="flex justify-between items-center">
+      <div className="flex justify-between items-center mt-4">
         <Button 
           onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
           disabled={currentPage === 1}
