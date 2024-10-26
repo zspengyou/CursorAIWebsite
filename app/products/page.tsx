@@ -18,56 +18,79 @@ interface Product {
   name: string;
   cas: string;
   catalog: string;
+  category: string;
 }
 
-const PRODUCTS_PER_PAGE = 50
+const categories = [
+  { name: 'Advanced Building Blocks', sheet: 'Sheet1' },
+  { name: 'Isotope labeled compounds', sheet: 'Sheet2' },
+  { name: 'PEGs and PEG Linkers', sheet: 'Sheet3' },
+  { name: 'Cy5', sheet: 'Sheet4' },
+]
 
 export default function Products() {
   const [products, setProducts] = useState<Product[]>([])
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([])
   const [searchTerm, setSearchTerm] = useState('')
-  const [currentPage, setCurrentPage] = useState(1)
+  const [selectedCategory, setSelectedCategory] = useState('All')
 
   useEffect(() => {
-    const fetchProducts = async () => {
-      const fetchedProducts = await getProducts('Sheet1')
-      setProducts(fetchedProducts)
-      setFilteredProducts(fetchedProducts)
+    const fetchAllProducts = async () => {
+      const allProducts = await Promise.all(
+        categories.map(async (category) => {
+          const fetchedProducts = await getProducts(category.sheet)
+          return fetchedProducts.map(product => ({ ...product, category: category.name }))
+        })
+      )
+      const flattenedProducts = allProducts.flat()
+      setProducts(flattenedProducts)
+      setFilteredProducts(flattenedProducts)
     }
-    fetchProducts()
+    fetchAllProducts()
   }, [])
 
   useEffect(() => {
-    const filtered = products.filter(product =>
+    let filtered = products
+    if (selectedCategory !== 'All') {
+      filtered = filtered.filter(product => product.category === selectedCategory)
+    }
+    filtered = filtered.filter(product =>
       product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
       product.cas.toLowerCase().includes(searchTerm.toLowerCase()) ||
       product.catalog.toLowerCase().includes(searchTerm.toLowerCase())
     )
     setFilteredProducts(filtered)
-    setCurrentPage(1)
-  }, [searchTerm, products])
+  }, [searchTerm, selectedCategory, products])
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value)
   }
 
-  const totalPages = Math.ceil(filteredProducts.length / PRODUCTS_PER_PAGE)
-  const startIndex = (currentPage - 1) * PRODUCTS_PER_PAGE
-  const endIndex = startIndex + PRODUCTS_PER_PAGE
-  const currentProducts = filteredProducts.slice(startIndex, endIndex)
-
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-3xl font-bold mb-6">Our Products</h1>
-      <p className="mb-4">      
-        Chemicals in Analytical chemistry<br />
-        PEG, PEG Linker and Cy5<br />
-        And custom synthesis<br />
-      </p>
+
+      <div className="flex flex-wrap gap-2 mb-4">
+        {categories.map((category) => (
+          <Button
+            key={category.name}
+            onClick={() => setSelectedCategory(category.name)}
+            variant={selectedCategory === category.name ? "default" : "outline"}
+          >
+            {category.name}
+          </Button>
+        ))}
+        <Button
+          onClick={() => setSelectedCategory('All')}
+          variant={selectedCategory === 'All' ? "default" : "outline"}
+        >
+          All
+        </Button>
+      </div>
 
       <Input
         type="text"
-        placeholder="Search products..."
+        placeholder="Search by Chemical Name, CAS, or Catalog..."
         value={searchTerm}
         onChange={handleSearchChange}
         className="mb-4"
@@ -82,7 +105,7 @@ export default function Products() {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {currentProducts.map((product) => (
+          {filteredProducts.map((product) => (
             <TableRow key={product.id}>
               <TableCell>{product.name}</TableCell>
               <TableCell>{product.cas}</TableCell>
@@ -91,22 +114,6 @@ export default function Products() {
           ))}
         </TableBody>
       </Table>
-
-      <div className="flex justify-between items-center mt-4">
-        <Button 
-          onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
-          disabled={currentPage === 1}
-        >
-          Previous
-        </Button>
-        <span>Page {currentPage} of {totalPages}</span>
-        <Button 
-          onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
-          disabled={currentPage === totalPages}
-        >
-          Next
-        </Button>
-      </div>
     </div>
   )
 }
