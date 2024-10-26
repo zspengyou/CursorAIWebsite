@@ -21,12 +21,12 @@ export default async function ProductDetail({ params }: { params: { id: string }
         <div className="p-6">
           <h1 className="text-3xl font-bold mb-4">{product.name}</h1>
           <div className="mb-6">
-            <h2 className="text-xl font-semibold mb-2">Description</h2>
-            <p className="text-gray-700">{product.description}</p>
+            <h2 className="text-xl font-semibold mb-2">CAS</h2>
+            <p className="text-gray-700">{product.cas}</p>
           </div>
           <div className="mb-6">
-            <h2 className="text-xl font-semibold mb-2">Other Attributes</h2>
-            <p className="text-gray-700">{product.otherAttributes}</p>
+            <h2 className="text-xl font-semibold mb-2">Catalog</h2>
+            <p className="text-gray-700">{product.catalog}</p>
           </div>
           
           {/* <Button className="w-full">Add to Cart</Button> */}
