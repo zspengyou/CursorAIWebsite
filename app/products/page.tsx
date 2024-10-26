@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { getProducts } from '@/lib/google-sheets'
@@ -12,6 +13,8 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
+
+const PRODUCTS_PER_PAGE = 50
 
 interface Product {
   id: number;
@@ -29,6 +32,7 @@ const categories = [
 ]
 
 export default function Products() {
+  const router = useRouter()
   const [products, setProducts] = useState<Product[]>([])
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([])
   const [searchTerm, setSearchTerm] = useState('')
@@ -65,6 +69,15 @@ export default function Products() {
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value)
   }
+
+  const handleProductClick = (productId: number) => {
+    router.push(`/products/${productId}`)
+  }
+  const [currentPage, setCurrentPage] = useState(1)
+  const totalPages = Math.ceil(filteredProducts.length / PRODUCTS_PER_PAGE)
+  const startIndex = (currentPage - 1) * PRODUCTS_PER_PAGE
+  const endIndex = startIndex + PRODUCTS_PER_PAGE
+  const currentProducts = filteredProducts.slice(startIndex, endIndex)
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -105,8 +118,12 @@ export default function Products() {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {filteredProducts.map((product) => (
-            <TableRow key={product.id}>
+          {currentProducts.map((product) => (
+            <TableRow 
+              key={product.id} 
+              onClick={() => handleProductClick(product.id)}
+              className="cursor-pointer hover:bg-gray-100"
+            >
               <TableCell>{product.name}</TableCell>
               <TableCell>{product.cas}</TableCell>
               <TableCell>{product.catalog}</TableCell>
@@ -114,6 +131,21 @@ export default function Products() {
           ))}
         </TableBody>
       </Table>
+      <div className="flex justify-between items-center">
+        <Button 
+          onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+          disabled={currentPage === 1}
+        >
+          Previous
+        </Button>
+        <span>Page {currentPage} of {totalPages}</span>
+        <Button 
+          onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+          disabled={currentPage === totalPages}
+        >
+          Next
+        </Button>
+      </div>
     </div>
   )
 }

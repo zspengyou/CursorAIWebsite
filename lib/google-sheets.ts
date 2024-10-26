@@ -24,7 +24,7 @@ export async function getProducts(sheetName: string = SHEET_NAME): Promise<Produ
 
     // Skip the first row (header) and map the rest
     return data.table.rows.slice(1).map((row: SheetRow, index: number): Product => {
-      console.log(row);
+      // console.log(row);
       return {
         id: index + 1,
         name: row.c[0]?.v || 'No Name',
