@@ -31,7 +31,7 @@ export default function ProductPage({ params }: { params: { category: string; id
     }
   }, [product])
 
-  if (!product) {
+  if (!product || product.category !== decodeURIComponent(params.category) || product.id.toString() !== params.id) {
     notFound()
   }
 
