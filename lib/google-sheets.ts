@@ -28,8 +28,8 @@ export async function getProducts(sheetName: string = SHEET_NAME): Promise<Produ
       return {
         id: index + 1,
         name: row.c[0]?.v || 'No Name',
-        description: row.c[1]?.v || 'No Description',
-        otherAttributes: row.c[2]?.v || 'N/A'
+        cas: row.c[1]?.v || 'No Description',
+        catalog: row.c[2]?.v || 'N/A'
       };
     });
   } catch (error) {
