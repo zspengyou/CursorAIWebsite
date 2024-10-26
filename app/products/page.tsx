@@ -71,8 +71,8 @@ export default function Products() {
   }
 
   const handleProductClick = (product: Product) => {
-    console.log("jayzhou product page" + product)
-    router.push(`/products/${encodeURIComponent(product.category)}/${product.id}`)
+    const encodedProduct = encodeURIComponent(JSON.stringify(product))
+    router.push(`/products/${encodeURIComponent(product.category)}/${product.id}?data=${encodedProduct}`)
   }
   const [currentPage, setCurrentPage] = useState(1)
   const totalPages = Math.ceil(filteredProducts.length / PRODUCTS_PER_PAGE)

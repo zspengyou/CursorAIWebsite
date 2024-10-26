@@ -1,13 +1,28 @@
+'use client'
+
+import { useSearchParams } from 'next/navigation'
 import { notFound } from 'next/navigation'
-import { getProducts } from '@/lib/google-sheets'
-import Link from 'next/link'
 
-export const revalidate = 3600; // Revalidate every hour
+interface Product {
+  id: number;
+  name: string;
+  cas: string;
+  catalog: string;
+  category: string;
+}
 
-export default async function ProductDetail({ params }: { params: { id: string } }) {
-  console.log("jayzhou product detail page" + params)
-  const products = await getProducts()
-  const product = products.find(p => p.id.toString() === params.id)
+export default function ProductPage({ params }: { params: { category: string; id: string } }) {
+  const searchParams = useSearchParams()
+  const encodedData = searchParams.get('data')
+  
+  let product: Product | null = null;
+  if (encodedData) {
+    try {
+      product = JSON.parse(decodeURIComponent(encodedData)) as Product;
+    } catch (error) {
+      console.error('Error parsing product data:', error);
+    }
+  }
 
   if (!product) {
     notFound()
@@ -15,32 +30,13 @@ export default async function ProductDetail({ params }: { params: { id: string }
 
   return (
     <div className="container mx-auto px-4 py-8">
-      <Link href="/products" className="text-blue-600 hover:underline mb-4 inline-block">
-        &larr; Back to Products
-      </Link>
-      <div className="bg-white shadow-lg rounded-lg overflow-hidden">
-        <div className="p-6">
-          <h1 className="text-3xl font-bold mb-4">{product.name}</h1>
-          <div className="mb-6">
-            <h2 className="text-xl font-semibold mb-2">CAS</h2>
-            <p className="text-gray-700">{product.cas}</p>
-          </div>
-          <div className="mb-6">
-            <h2 className="text-xl font-semibold mb-2">Catalog</h2>
-            <p className="text-gray-700">{product.catalog}</p>
-          </div>
-          
-          {/* <Button className="w-full">Add to Cart</Button> */}
-        </div>
+      <h1 className="text-3xl font-bold mb-6">{product.name}</h1>
+      <div className="bg-white shadow-md rounded-lg p-6">
+        <p className="text-gray-600 mb-2"><strong>Category:</strong> {product.category}</p>
+        <p className="text-gray-600 mb-2"><strong>CAS:</strong> {product.cas}</p>
+        <p className="text-gray-600 mb-2"><strong>Catalog:</strong> {product.catalog}</p>
+        {/* Add more product details here as needed */}
       </div>
     </div>
   )
-}
-
-// Generate static params for all products
-export async function generateStaticParams() {
-  const products = await getProducts()
-  return products.map((product) => ({
-    id: product.id.toString(),
-  }))
 }
