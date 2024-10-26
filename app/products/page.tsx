@@ -100,7 +100,7 @@ export default function Products() {
   const currentProducts = filteredProducts.slice(startIndex, endIndex)
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="container mx-auto px-4 py-8 max-w-7xl">
       <h1 className="text-3xl font-bold mb-6">Our Products</h1>
 
       <div className="flex flex-wrap gap-2 mb-4">
@@ -129,28 +129,33 @@ export default function Products() {
         className="mb-4"
       />
 
-      <Table>
-        <TableHeader>
-          <TableRow>
-            <TableHead>Chemical Name</TableHead>
-            <TableHead>CAS</TableHead>
-            <TableHead>Catalog</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {currentProducts.map((product) => (
-            <TableRow 
-              key={product.id} 
-              onClick={() => handleProductClick(product)}
-              className="cursor-pointer hover:bg-gray-100"
-            >
-              <TableCell>{product.name}</TableCell>
-              <TableCell>{product.cas}</TableCell>
-              <TableCell>{product.catalog}</TableCell>
+      <div className="overflow-x-auto">
+        <Table className="w-full">
+          <TableHeader className="bg-black">
+            <TableRow>
+              <TableHead className="w-1/2 text-white font-bold">Chemical Name</TableHead>
+              <TableHead className="w-1/4 text-white font-bold">CAS</TableHead>
+              <TableHead className="w-1/4 text-white font-bold">Catalog</TableHead>
             </TableRow>
-          ))}
-        </TableBody>
-      </Table>
+          </TableHeader>
+          <TableBody>
+            {currentProducts.map((product) => (
+              <TableRow 
+                key={product.id} 
+                onClick={() => handleProductClick(product)}
+                className="cursor-pointer hover:bg-gray-100"
+              >
+                <TableCell >
+                  {product.name}
+                </TableCell>
+                <TableCell>{product.cas}</TableCell>
+                <TableCell>{product.catalog}</TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </div>
+
       <div className="flex justify-between items-center mt-4">
         <Button 
           onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
