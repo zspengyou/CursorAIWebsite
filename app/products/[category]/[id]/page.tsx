@@ -5,6 +5,7 @@ import Link from 'next/link'
 export const revalidate = 3600; // Revalidate every hour
 
 export default async function ProductDetail({ params }: { params: { id: string } }) {
+  console.log("jayzhou product detail page" + params)
   const products = await getProducts()
   const product = products.find(p => p.id.toString() === params.id)
 

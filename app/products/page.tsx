@@ -70,8 +70,9 @@ export default function Products() {
     setSearchTerm(e.target.value)
   }
 
-  const handleProductClick = (productId: number) => {
-    router.push(`/products/${productId}`)
+  const handleProductClick = (product: Product) => {
+    console.log("jayzhou product page" + product)
+    router.push(`/products/${encodeURIComponent(product.category)}/${product.id}`)
   }
   const [currentPage, setCurrentPage] = useState(1)
   const totalPages = Math.ceil(filteredProducts.length / PRODUCTS_PER_PAGE)
@@ -121,7 +122,7 @@ export default function Products() {
           {currentProducts.map((product) => (
             <TableRow 
               key={product.id} 
-              onClick={() => handleProductClick(product.id)}
+              onClick={() => handleProductClick(product)}
               className="cursor-pointer hover:bg-gray-100"
             >
               <TableCell>{product.name}</TableCell>
