@@ -6,8 +6,8 @@ const SHEET_NAME = 'Sheet1';
 interface Product {
   id: number;
   name: string;
-  description: string;
-  otherAttributes: string;
+  cas: string;
+  catalog: string;
 }
 
 export async function getProducts(sheetName: string = SHEET_NAME): Promise<Product[]> {
