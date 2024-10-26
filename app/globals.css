@@ -109,7 +109,7 @@ body::before {
   background-repeat: no-repeat;
   background-size: cover;
   background-attachment: fixed;
-  opacity: 0.2; /* Adjust this value to control the image opacity */
+  opacity: 0.1; /* Adjust this value to control the image opacity */
   z-index: -1;
 }
 
