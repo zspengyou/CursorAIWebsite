@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { useRouter } from 'next/navigation'
+import { useRouter, usePathname } from 'next/navigation'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { getProducts } from '@/lib/google-sheets'
@@ -33,6 +33,7 @@ const categories = [
 
 export default function Products() {
   const router = useRouter()
+  const pathname = usePathname()
   const [products, setProducts] = useState<Product[]>([])
   const [filteredProducts, setFilteredProducts] = useState<Product[]>([])
   const [searchTerm, setSearchTerm] = useState('')
@@ -61,6 +62,14 @@ export default function Products() {
       localStorage.removeItem('lastViewedCategory') // Clear after using
     }
   }, [])
+
+  useEffect(() => {
+    const lastViewedCategory = localStorage.getItem('lastViewedCategory')
+    if (lastViewedCategory) {
+      setSelectedCategory(lastViewedCategory)
+      localStorage.removeItem('lastViewedCategory') // Clear after using
+    }
+  }, [pathname]) // This effect will run when the pathname changes
 
   useEffect(() => {
     let filtered = products

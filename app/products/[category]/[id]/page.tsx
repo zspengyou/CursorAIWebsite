@@ -1,5 +1,6 @@
 'use client'
 
+import { useEffect } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { notFound } from 'next/navigation'
 
@@ -23,6 +24,12 @@ export default function ProductPage({ params }: { params: { category: string; id
       console.error('Error parsing product data:', error);
     }
   }
+
+  useEffect(() => {
+    if (product) {
+      localStorage.setItem('lastViewedCategory', product.category)
+    }
+  }, [product])
 
   if (!product) {
     notFound()
