@@ -1,8 +1,9 @@
 export const categories_and_sheet = [
   { name: 'Advanced Building Blocks', sheet: 'Sheet1' },
-  { name: 'Isotope labeled compounds', sheet: 'Sheet2' },
-  { name: 'PEGs and PEG Linkers', sheet: 'Sheet3' },
-  { name: 'Cy5', sheet: 'Sheet4' },
+  {name: 'Analytical Chemical Reagents', sheet:'Sheet2'},
+  { name: 'Isotope labeled compounds', sheet: 'Sheet3' },
+  { name: 'PEGs and PEG Linkers', sheet: 'Sheet4' },
+  { name: 'Cy5', sheet: 'Sheet5' },
 ] as const
 
 export type CategoryName = typeof categories_and_sheet[number]['name']
