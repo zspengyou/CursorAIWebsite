@@ -5,6 +5,8 @@ import { useRouter, usePathname } from 'next/navigation'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { getProducts } from '@/lib/google-sheets'
+import { categories_and_sheet } from '@/lib/constants'
+import { Product } from '@/lib/types'
 import {
   Table,
   TableBody,
@@ -15,21 +17,6 @@ import {
 } from "@/components/ui/table"
 
 const PRODUCTS_PER_PAGE = 50
-
-interface Product {
-  id: number;
-  name: string;
-  cas: string;
-  catalog: string;
-  category: string;
-}
-
-const categories = [
-  { name: 'Advanced Building Blocks', sheet: 'Sheet1' },
-  { name: 'Isotope labeled compounds', sheet: 'Sheet2' },
-  { name: 'PEGs and PEG Linkers', sheet: 'Sheet3' },
-  { name: 'Cy5', sheet: 'Sheet4' },
-]
 
 export default function Products() {
   const router = useRouter()
@@ -44,7 +31,7 @@ export default function Products() {
   useEffect(() => {
     const fetchAllProducts = async () => {
       const allProducts = await Promise.all(
-        categories.map(async (category) => {
+        categories_and_sheet.map(async (category) => {
           const fetchedProducts = await getProducts(category.sheet)
           return fetchedProducts.map(product => ({ ...product, category: category.name }))
         })
@@ -104,7 +91,7 @@ export default function Products() {
       <h1 className="text-3xl font-bold mb-6">Our Products</h1>
 
       <div className="flex flex-wrap gap-2 mb-4">
-        {categories.map((category) => (
+        {categories_and_sheet.map((category) => (
           <Button
             key={category.name}
             onClick={() => setSelectedCategory(category.name)}
