@@ -3,19 +3,18 @@
 import { useEffect } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { notFound } from 'next/navigation'
-
-interface Product {
-  id: number;
-  name: string;
-  cas: string;
-  catalog: string;
-  category: string;
-}
+import { isValidCategory } from '@/lib/constants'
+import { Product } from '@/lib/types'
 
 export default function ProductPage({ params }: { params: { category: string; id: string } }) {
   const searchParams = useSearchParams()
   const encodedData = searchParams.get('data')
+  const category = decodeURIComponent(params.category)
   
+  if (!isValidCategory(category)) {
+    notFound()
+  }
+
   let product: Product | null = null;
   if (encodedData) {
     try {

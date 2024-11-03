@@ -1,14 +1,8 @@
 import axios from 'axios';
+import { Product } from '@/lib/types'
 
 const SHEET_ID = '1mlI_-rUxWRY44GhtK73SVXfFrUvvB6nF8lKomlIcMo8';
 const SHEET_NAME = 'Sheet1';
-
-interface Product {
-  id: number;
-  name: string;
-  cas: string;
-  catalog: string;
-}
 
 export async function getProducts(sheetName: string = SHEET_NAME): Promise<Product[]> {
   const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=${sheetName}`;
@@ -28,8 +22,9 @@ export async function getProducts(sheetName: string = SHEET_NAME): Promise<Produ
       return {
         id: index + 1,
         name: row.c[0]?.v || 'No Name',
-        cas: row.c[1]?.v || 'No Description',
-        catalog: row.c[2]?.v || 'N/A'
+        cas: row.c[1]?.v || 'No cas',
+        catalog: row.c[2]?.v || 'N/A',
+        category: 'N/A'
       };
     });
   } catch (error) {
@@ -45,3 +40,4 @@ type Cell = {
 type SheetRow = {
   c: Cell[];
 };
+
